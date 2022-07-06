@@ -1,51 +1,72 @@
-import java.util.Scanner;
+import java.sql.Date;
+import java.util.StringTokenizer;
 
 public class App {
+    private static long startTime;
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-
-        //declaración
-       // max2Numeros();
-       drawLinea();
+        ShowProgressBar_i();
+        delay(30);
+        
     }
 
-    private static void max2Numeros() {
-        int a=0;
-        int b=0;
-        Scanner sc = new Scanner(System.in);
+public static void ShowProgressBar_i() throws InterruptedException{
+    String letra= "christofer.soria@epn.edu.ec";
+    int i = 1;
+    while(i < 28) {
+        System.out.print("[");
+        for (int j=0;j<i;j++) {
+            System.out.print("<-=->");
+        }
 
-        System.out.printf("Ingrese el primer valor: ");
-        a=sc.nextInt();
-        System.out.printf("ingrese el segundo valor: ");
-        b= sc.nextInt();
+        for (int j=1;j<20+i;j++) {
+            System.out.print(" ");
+        }
 
-        if(a>b)
-        {
-            System.out.printf("El mayor valor es: %d",a);
+        System.out.print("] "+  i*5 + "%");
+        if(i<29) {
+            System.out.print("\n");
+            Thread.sleep(300);
+            System.out.println(letra.substring(0,i));
+            
         }
-        else
-        {
-            System.out.printf("El mayor valor es: %d",b);
-        }
-        sc.close();
+
+        i++;
+        
     }
-    static void drawCuadrado()
-    {
-        for(int v=1;v<=10;v++)
-        {
-            for(int h=1;h<=10;h++){
-             
-                System.out.printf("* ");
-            }
-            System.out.printf("* ");
-        }
-    }
-    static void drawLinea()
-    {
-        for(int i=0;i<10;i=i+1)
-        {
-            System.out.printf("* ");
-        }
+    System.out.println("\n");
+}
+
+public static void delay(long milliseconds) throws InterruptedException{
+String bar = "[--------------------]";
+String icon = "<-=->";
+
+startTime = new Date(startTime).getTime();
+boolean bouncePositive = true;
+int barPosition = 0;
+
+while((new Date(startTime).getTime() - startTime) < milliseconds) {
+    if(barPosition < bar.length() && barPosition > 0) {
+        String b1 = bar.substring(0, barPosition);
+        String b2 = bar.substring(barPosition);
+        System.out.print("\r Loading: " + b1 + icon + b2);
+        if(bouncePositive) barPosition++;
+        else barPosition--;
+    } if(barPosition == bar.length()) {
+        barPosition--;
+        bouncePositive = false;
+    } if(barPosition == 0) {
+        barPosition++;
+        bouncePositive = true;
     }
 
+    try { Thread.sleep(100); }
+    catch (Exception e) {}
+    int i=0;
+    if(i<20) {
+        System.out.print("\r");
+        Thread.sleep(300);
+    }
+}
+System.out.print("\n");
+}
 }
